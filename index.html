@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#1a1030">
+    <meta name="description" content="Draw a tarot card for daily insight and reflection. Works offline.">
+    <title>Tarot Draw</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <header class="hero">
+            <h1>Tarot Draw</h1>
+            <p class="subtitle">Focus your mind and draw a card for insight.</p>
+        </header>
+
+        <div id="draw-settings" class="draw-settings">
+            <div class="setting-group">
+                <span class="setting-label">Cards</span>
+                <div class="option-group" role="group" aria-label="Number of cards">
+                    <button type="button" class="option active" data-spread="1" aria-pressed="true">1</button>
+                    <button type="button" class="option" data-spread="3" aria-pressed="false">3</button>
+                    <button type="button" class="option" data-spread="5" aria-pressed="false">5</button>
+                </div>
+            </div>
+            <div class="setting-group">
+                <span class="setting-label">Deck</span>
+                <div class="option-group" role="group" aria-label="Deck type">
+                    <button type="button" class="option active" data-deck="major" aria-pressed="true">Major</button>
+                    <button type="button" class="option" data-deck="minor" aria-pressed="false">Minor</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-stage">
+            <div id="cards-container" class="cards-container cards-count-1"></div>
+            <p id="stage-prompt" class="stage-prompt">Tap a card to draw</p>
+        </div>
+
+        <section id="readings" class="readings hidden"></section>
+
+        <button id="draw-again" class="primary-button hidden" type="button">Draw Again</button>
+
+        <button id="install-prompt" class="install-button hidden" type="button">
+            Install App
+        </button>
+
+        <div id="install-modal" class="install-modal hidden">
+            <div class="install-modal-content">
+                <h3>Install Tarot Draw</h3>
+                <ol class="install-steps">
+                    <li>Tap the <strong>Share</strong> button at the bottom of Safari</li>
+                    <li>Scroll down and tap <strong>Add to Home Screen</strong></li>
+                    <li>Tap <strong>Add</strong> to confirm</li>
+                </ol>
+                <button class="install-close-button" id="install-close" type="button">Got it!</button>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="script.js"></script>
+</body>
+</html>

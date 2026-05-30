@@ -1,0 +1,16 @@
+{
+  "name": "tarot-draw-light",
+  "version": "1.0.0",
+  "description": "A lightweight PWA for drawing and interpreting tarot cards offline",
+  "scripts": {
+    "start": "npx http-server -p 8080 -o"
+  },
+  "keywords": [
+    "tarot",
+    "PWA",
+    "divination",
+    "offline"
+  ],
+  "author": "",
+  "license": "MIT"
+}
