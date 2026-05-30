@@ -1,4 +1,6 @@
 import { tarotDeck } from './tarot-data.js';
+import { saveDraw, buildHistoryEntry } from './history-store.js';
+import { loadPrefs, savePrefs } from './prefs-store.js';
 
 const MAJOR_ARCANA_COUNT = 22;
 
@@ -7,6 +9,8 @@ const stagePrompt = document.getElementById('stage-prompt');
 const readingsSection = document.getElementById('readings');
 const drawAgainBtn = document.getElementById('draw-again');
 const drawSettings = document.getElementById('draw-settings');
+const menuToggle = document.getElementById('menu-toggle');
+const menuBackdrop = document.getElementById('menu-backdrop');
 const installPrompt = document.getElementById('install-prompt');
 const installModal = document.getElementById('install-modal');
 const installClose = document.getElementById('install-close');
@@ -14,7 +18,23 @@ const installClose = document.getElementById('install-close');
 let spreadCount = 1;
 let deckType = 'major';
 let isDrawing = false;
-let hasDrawn = false;
+
+function persistOptions() {
+    savePrefs({ spreadCount, deckType });
+}
+
+function applyOptionsToUI() {
+    const spreadBtn = drawSettings.querySelector(`[data-spread="${spreadCount}"]`);
+    const deckBtn = drawSettings.querySelector(`[data-deck="${deckType}"]`);
+
+    if (spreadBtn) {
+        updateSpreadButtons(spreadBtn);
+    }
+    if (deckBtn) {
+        updateDeckButtons(deckBtn);
+    }
+}
+let drawnSlots = [];
 let iosInstallModule = null;
 
 function getFilteredDeck(type) {
@@ -24,8 +44,8 @@ function getFilteredDeck(type) {
     return tarotDeck.slice(MAJOR_ARCANA_COUNT);
 }
 
-function pickCards(count, type) {
-    const pool = [...getFilteredDeck(type)];
+function pickCards(count, type, excludeIds = new Set()) {
+    const pool = getFilteredDeck(type).filter((card) => !excludeIds.has(card.id));
     const results = [];
 
     for (let i = 0; i < count && pool.length > 0; i++) {
@@ -40,13 +60,31 @@ function pickCards(count, type) {
     return results;
 }
 
+function getExcludedCardIds() {
+    return new Set(
+        drawnSlots.filter(Boolean).map((draw) => draw.card.id)
+    );
+}
+
+function countDrawn() {
+    return drawnSlots.filter(Boolean).length;
+}
+
+function isSpreadComplete() {
+    return drawnSlots.length === spreadCount && drawnSlots.every(Boolean);
+}
+
+function initDrawnSlots() {
+    drawnSlots = Array(spreadCount).fill(null);
+}
+
 function createCardElement(index) {
     const card = document.createElement('div');
     card.className = 'tarot-card interactive';
     card.dataset.index = String(index);
     card.setAttribute('role', 'button');
     card.setAttribute('tabindex', '0');
-    card.setAttribute('aria-label', 'Draw a tarot card');
+    card.setAttribute('aria-label', `Draw card ${index + 1}`);
 
     card.innerHTML = `
         <div class="card-face card-back">
@@ -79,39 +117,99 @@ function createCardElement(index) {
     card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            handleCardActivate();
+            handleCardActivate(e);
         }
     });
 
     return card;
 }
 
+async function restoreDrawnSlotFaces() {
+    const cardEls = cardsContainer.querySelectorAll('.tarot-card');
+
+    await Promise.all(
+        [...cardEls].map(async (el, index) => {
+            const draw = drawnSlots[index];
+            if (!draw) {
+                return;
+            }
+
+            el.classList.remove('interactive');
+            const imageLoaded = await preloadImage(draw.card.imageUrl);
+            applyCardFace(el, draw, imageLoaded);
+        })
+    );
+}
+
+const STAR_CARD_CENTERS = [
+    [50, 12],
+    [86.1, 38.3],
+    [72.4, 80.7],
+    [27.6, 80.7],
+    [13.9, 38.3]
+];
+
+const STAR_LINE_ORDER = [0, 2, 4, 1, 3, 0];
+
+function createStarLinesSvg() {
+    const ns = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('class', 'spread-star-lines');
+    svg.setAttribute('viewBox', '0 0 100 100');
+    svg.setAttribute('preserveAspectRatio', 'none');
+    svg.setAttribute('aria-hidden', 'true');
+
+    const points = STAR_LINE_ORDER.map((i) => STAR_CARD_CENTERS[i].join(',')).join(' ');
+    const polyline = document.createElementNS(ns, 'polyline');
+    polyline.setAttribute('points', points);
+    svg.appendChild(polyline);
+
+    return svg;
+}
+
 function renderCardSlots() {
     cardsContainer.className = `cards-container cards-count-${spreadCount}`;
     cardsContainer.replaceChildren();
 
+    if (spreadCount === 5) {
+        cardsContainer.appendChild(createStarLinesSvg());
+    }
+
     for (let i = 0; i < spreadCount; i++) {
         cardsContainer.appendChild(createCardElement(i));
     }
+
+    return restoreDrawnSlotFaces();
 }
 
-function setSettingsEnabled(enabled) {
-    drawSettings.querySelectorAll('.option').forEach((btn) => {
-        btn.disabled = !enabled;
-    });
+function setMenuOpen(open) {
+    const isOpen = Boolean(open);
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+    menuToggle.setAttribute('aria-label', isOpen ? 'Close draw options' : 'Draw options');
+    drawSettings.classList.toggle('hidden', !isOpen);
+    menuBackdrop.classList.toggle('hidden', !isOpen);
+    menuBackdrop.setAttribute('aria-hidden', String(!isOpen));
+}
+
+function closeMenu() {
+    setMenuOpen(false);
 }
 
 function updateStagePrompt() {
-    if (hasDrawn) {
+    if (isSpreadComplete()) {
         stagePrompt.textContent = '';
         return;
     }
 
     const deckLabel = deckType === 'major' ? 'Major Arcana' : 'Minor Arcana';
+    const revealed = countDrawn();
+
     if (spreadCount === 1) {
         stagePrompt.textContent = `Tap the card to draw from ${deckLabel}`;
+    } else if (revealed > 0) {
+        stagePrompt.textContent = `Tap a card to draw (${revealed} of ${spreadCount} revealed)`;
     } else {
-        stagePrompt.textContent = `Tap to draw ${spreadCount} cards from ${deckLabel}`;
+        stagePrompt.textContent = `Tap each card to draw from ${deckLabel}`;
     }
 }
 
@@ -158,10 +256,17 @@ function applyCardFace(el, draw, imageAvailable) {
     );
 }
 
-function renderReadings(draws) {
+function renderReadings() {
     readingsSection.replaceChildren();
 
-    draws.forEach(({ card, reversed }, index) => {
+    let hasAny = false;
+
+    drawnSlots.forEach((draw, index) => {
+        if (!draw) {
+            return;
+        }
+
+        hasAny = true;
         const item = document.createElement('article');
         item.className = 'reading-item';
 
@@ -169,19 +274,19 @@ function renderReadings(draws) {
 
         item.innerHTML = `
             <div class="card-header">
-                <h2>${positionLabel}: ${card.name}</h2>
-                <span class="badge ${reversed ? 'reversed' : 'upright'}">${reversed ? 'Reversed' : 'Upright'}</span>
+                <h2>${positionLabel}: ${draw.card.name}</h2>
+                <span class="badge ${draw.reversed ? 'reversed' : 'upright'}">${draw.reversed ? 'Reversed' : 'Upright'}</span>
             </div>
-            <p class="reading-meaning">${reversed ? card.meaning_rev : card.meaning_up}</p>
+            <p class="reading-meaning">${draw.reversed ? draw.card.meaning_rev : draw.card.meaning_up}</p>
             <details class="full-meanings">
                 <summary>View upright &amp; reversed meanings</summary>
                 <div class="meaning-block">
                     <h3>Upright</h3>
-                    <p>${card.meaning_up}</p>
+                    <p>${draw.card.meaning_up}</p>
                 </div>
                 <div class="meaning-block">
                     <h3>Reversed</h3>
-                    <p>${card.meaning_rev}</p>
+                    <p>${draw.card.meaning_rev}</p>
                 </div>
             </details>
         `;
@@ -189,98 +294,185 @@ function renderReadings(draws) {
         readingsSection.appendChild(item);
     });
 
-    readingsSection.classList.remove('hidden');
+    readingsSection.classList.toggle('hidden', !hasAny);
+}
+
+function finishSpread() {
+    const orderedDraws = drawnSlots.filter(Boolean);
+    saveDraw(buildHistoryEntry(orderedDraws, spreadCount, deckType));
+    drawAgainBtn.classList.remove('hidden');
+    updateStagePrompt();
 }
 
 function resetDraw() {
     isDrawing = false;
-    hasDrawn = false;
+    initDrawnSlots();
 
     renderCardSlots();
     readingsSection.classList.add('hidden');
     readingsSection.replaceChildren();
     drawAgainBtn.classList.add('hidden');
-    setSettingsEnabled(true);
     updateStagePrompt();
 }
 
-async function handleDraw() {
-    if (isDrawing || hasDrawn) {
+function updateSpreadButtons(activeBtn) {
+    drawSettings.querySelectorAll('[data-spread]').forEach((option) => {
+        const isActive = option === activeBtn;
+        option.classList.toggle('active', isActive);
+        option.setAttribute('aria-pressed', String(isActive));
+    });
+}
+
+function updateDeckButtons(activeBtn) {
+    drawSettings.querySelectorAll('[data-deck]').forEach((option) => {
+        const isActive = option === activeBtn;
+        option.classList.toggle('active', isActive);
+        option.setAttribute('aria-pressed', String(isActive));
+    });
+}
+
+function expandSpread(newSpread) {
+    const next = Array(newSpread).fill(null);
+
+    for (let i = 0; i < drawnSlots.length && i < newSpread; i++) {
+        next[i] = drawnSlots[i];
+    }
+
+    drawnSlots = next;
+    spreadCount = newSpread;
+    persistOptions();
+    renderCardSlots();
+    drawAgainBtn.classList.add('hidden');
+    renderReadings();
+    updateStagePrompt();
+}
+
+async function drawCardAtIndex(index) {
+    if (isDrawing || isSpreadComplete() || drawnSlots[index]) {
+        return;
+    }
+
+    const excludeIds = getExcludedCardIds();
+    const [draw] = pickCards(1, deckType, excludeIds);
+
+    if (!draw) {
+        stagePrompt.textContent = 'No cards left in this deck.';
+        return;
+    }
+
+    const cardEl = cardsContainer.querySelector(`.tarot-card[data-index="${index}"]`);
+    if (!cardEl) {
         return;
     }
 
     isDrawing = true;
-    setSettingsEnabled(false);
     stagePrompt.textContent = 'Drawing...';
+    cardEl.classList.remove('interactive');
+    cardEl.classList.add('is-shuffling');
 
-    const cardEls = cardsContainer.querySelectorAll('.tarot-card');
-    cardEls.forEach((el) => {
-        el.classList.remove('interactive');
-        el.classList.add('is-shuffling');
-    });
-
-    const draws = pickCards(spreadCount, deckType);
-
-    const imageLoaded = await Promise.all(
-        draws.map(({ card }) => preloadImage(card.imageUrl))
-    );
+    const imageLoaded = await preloadImage(draw.card.imageUrl);
     await new Promise((resolve) => setTimeout(resolve, 900));
 
-    cardEls.forEach((el, index) => {
-        const draw = draws[index];
-        if (!draw) {
-            return;
-        }
-
-        applyCardFace(el, draw, imageLoaded[index]);
-    });
-
-    renderReadings(draws);
-    drawAgainBtn.classList.remove('hidden');
-    hasDrawn = true;
+    drawnSlots[index] = draw;
+    applyCardFace(cardEl, draw, imageLoaded);
     isDrawing = false;
-    stagePrompt.textContent = '';
+
+    renderReadings();
+
+    if (isSpreadComplete()) {
+        finishSpread();
+    } else {
+        updateStagePrompt();
+    }
 }
 
-function handleCardActivate() {
-    if (isDrawing || hasDrawn) {
+function handleCardActivate(e) {
+    if (isDrawing || isSpreadComplete()) {
         return;
     }
-    handleDraw();
+
+    const cardEl = e.currentTarget;
+    const index = Number(cardEl.dataset.index);
+
+    if (Number.isNaN(index) || drawnSlots[index]) {
+        return;
+    }
+
+    drawCardAtIndex(index);
 }
 
 function handleSpreadChange(e) {
     const btn = e.target.closest('[data-spread]');
-    if (!btn || btn.disabled) {
+    if (!btn || isDrawing) {
         return;
     }
 
-    spreadCount = Number(btn.dataset.spread);
-    drawSettings.querySelectorAll('[data-spread]').forEach((option) => {
-        const isActive = option === btn;
-        option.classList.toggle('active', isActive);
-        option.setAttribute('aria-pressed', String(isActive));
-    });
+    const newSpread = Number(btn.dataset.spread);
+    if (newSpread === spreadCount) {
+        closeMenu();
+        return;
+    }
 
-    renderCardSlots();
-    updateStagePrompt();
+    updateSpreadButtons(btn);
+
+    const revealed = countDrawn();
+
+    if (revealed > 0 && newSpread > spreadCount) {
+        expandSpread(newSpread);
+        closeMenu();
+        return;
+    }
+
+    spreadCount = newSpread;
+
+    if (revealed > 0) {
+        resetDraw();
+    } else {
+        initDrawnSlots();
+        renderCardSlots();
+        updateStagePrompt();
+    }
+
+    persistOptions();
+    closeMenu();
 }
 
 function handleDeckChange(e) {
     const btn = e.target.closest('[data-deck]');
-    if (!btn || btn.disabled) {
+    if (!btn || isDrawing) {
         return;
     }
 
-    deckType = btn.dataset.deck;
-    drawSettings.querySelectorAll('[data-deck]').forEach((option) => {
-        const isActive = option === btn;
-        option.classList.toggle('active', isActive);
-        option.setAttribute('aria-pressed', String(isActive));
-    });
+    const newDeck = btn.dataset.deck;
+    if (newDeck === deckType) {
+        closeMenu();
+        return;
+    }
 
-    updateStagePrompt();
+    deckType = newDeck;
+    updateDeckButtons(btn);
+
+    if (countDrawn() > 0) {
+        resetDraw();
+    } else {
+        updateStagePrompt();
+    }
+
+    persistOptions();
+    closeMenu();
 }
+
+menuToggle.addEventListener('click', () => {
+    setMenuOpen(menuToggle.getAttribute('aria-expanded') !== 'true');
+});
+
+menuBackdrop.addEventListener('click', closeMenu);
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
+        closeMenu();
+    }
+});
 
 drawSettings.addEventListener('click', (e) => {
     if (e.target.closest('[data-spread]')) {
@@ -304,6 +496,12 @@ async function loadAndShowIOSInstallPrompt() {
     }
 }
 
+const savedPrefs = loadPrefs();
+spreadCount = savedPrefs.spreadCount;
+deckType = savedPrefs.deckType;
+
+initDrawnSlots();
+applyOptionsToUI();
 renderCardSlots();
 updateStagePrompt();
 loadAndShowIOSInstallPrompt();

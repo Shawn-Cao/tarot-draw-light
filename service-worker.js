@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tarot-draw-light-v1';
+const CACHE_NAME = 'tarot-draw-light-v2';
 const STATIC_CACHE = 'tarot-draw-light-static-v1';
 const IMAGE_CACHE = 'tarot-draw-light-images-v1';
 const BASE_PATH = '/tarot-draw-light';
@@ -10,6 +10,10 @@ const urlsToCache = [
   `${BASE_PATH}/script.js`,
   `${BASE_PATH}/tarot-data.js`,
   `${BASE_PATH}/ios-install.js`,
+  `${BASE_PATH}/history.html`,
+  `${BASE_PATH}/history.js`,
+  `${BASE_PATH}/history-store.js`,
+  `${BASE_PATH}/prefs-store.js`,
   `${BASE_PATH}/manifest.json`
 ];
 
