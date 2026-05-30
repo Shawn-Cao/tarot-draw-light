@@ -103,9 +103,11 @@ function createCardElement(index) {
         <div class="card-face card-front">
             <div class="card-content">
                 <div class="card-art">
-                    <img src="" alt="" hidden>
-                    <div class="card-fallback" hidden>
-                        <p class="card-fallback-meaning"></p>
+                    <div class="card-art-inner">
+                        <img src="" alt="" hidden>
+                        <div class="card-fallback" hidden>
+                            <p class="card-fallback-meaning"></p>
+                        </div>
                     </div>
                 </div>
                 <span class="card-name"></span>
@@ -224,6 +226,7 @@ function preloadImage(url) {
 
 function applyCardFace(el, draw, imageAvailable) {
     const content = el.querySelector('.card-content');
+    const artInner = el.querySelector('.card-art-inner');
     const img = el.querySelector('img');
     const fallback = el.querySelector('.card-fallback');
     const fallbackMeaning = el.querySelector('.card-fallback-meaning');
@@ -231,7 +234,7 @@ function applyCardFace(el, draw, imageAvailable) {
     const meaning = draw.reversed ? draw.card.meaning_rev : draw.card.meaning_up;
 
     name.textContent = draw.card.name;
-    content.classList.toggle('reversed', draw.reversed);
+    artInner.classList.toggle('is-reversed', draw.reversed);
     content.classList.toggle('no-image', !imageAvailable);
 
     if (imageAvailable) {

@@ -499,6 +499,10 @@ html, body {
 }
 
 .tarot-card {
+    --card-inset: 0.5rem;
+    --card-art-pad: 0.35rem;
+    --card-name-h: 2.75rem;
+    --card-name-size: 0.95rem;
     width: min(220px, 58vw);
     height: min(352px, 93vw);
     position: relative;
@@ -586,32 +590,46 @@ html, body {
 .card-content {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     width: 100%;
     height: 100%;
-    padding: 0.75rem;
+    padding: var(--card-inset);
+    box-sizing: border-box;
     text-align: center;
-    transition: transform 0.4s ease;
-}
-
-.card-content.reversed {
-    transform: rotate(180deg);
 }
 
 .card-art {
-    flex: 1;
+    flex: 1 1 auto;
+    min-height: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 0;
+    padding: var(--card-art-pad);
     overflow: hidden;
 }
 
-.card-art img {
+.card-art-inner {
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s ease;
+}
+
+.card-art-inner.is-reversed {
+    transform: rotate(180deg);
+}
+
+.card-art img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
     object-fit: contain;
+    object-position: center;
 }
 
 .card-fallback {
@@ -621,6 +639,7 @@ html, body {
     width: 100%;
     height: 100%;
     padding: 0.25rem;
+    box-sizing: border-box;
 }
 
 .card-fallback-meaning {
@@ -631,6 +650,7 @@ html, body {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 6;
     overflow: hidden;
+    text-align: center;
 }
 
 .card-content.no-image .card-art {
@@ -639,11 +659,22 @@ html, body {
 }
 
 .card-name {
-    font-size: 0.95rem;
+    flex: 0 0 var(--card-name-h);
+    height: var(--card-name-h);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+    padding: 0 0.2rem;
+    box-sizing: border-box;
+    font-size: var(--card-name-size);
     font-weight: 600;
     letter-spacing: 0.04em;
-    padding-top: 0.5rem;
-    line-height: 1.3;
+    line-height: 1.2;
+    text-align: center;
+    overflow: hidden;
+    word-break: break-word;
 }
 
 .readings {
@@ -828,6 +859,10 @@ html, body {
 }
 
 .cards-count-3 .tarot-card {
+    --card-inset: 0.35rem;
+    --card-art-pad: 0.25rem;
+    --card-name-h: 2rem;
+    --card-name-size: 0.65rem;
     width: var(--card-w);
     height: var(--card-h);
 }
@@ -840,11 +875,11 @@ html, body {
     font-size: 0.85rem;
 }
 
-.cards-count-3 .card-name {
-    font-size: 0.65rem;
-}
-
 .cards-count-5 .tarot-card {
+    --card-inset: 0.25rem;
+    --card-art-pad: 0.15rem;
+    --card-name-h: 1.5rem;
+    --card-name-size: 0.55rem;
     width: var(--card-w);
     height: var(--card-h);
 }
@@ -862,18 +897,10 @@ html, body {
     font-size: 0.65rem;
 }
 
-.cards-count-5 .card-name {
-    font-size: 0.55rem;
-}
-
 .cards-count-5 .card-fallback-meaning {
     font-size: 0.45rem;
     line-height: 1.25;
     -webkit-line-clamp: 4;
-}
-
-.cards-count-5 .card-content {
-    padding: 0.35rem;
 }
 
 @media (min-width: 480px) {
@@ -883,6 +910,7 @@ html, body {
     }
 
     .cards-count-1 .tarot-card {
+        --card-name-h: 3rem;
         width: 240px;
         height: 384px;
     }
