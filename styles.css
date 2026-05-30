@@ -20,6 +20,21 @@ html, body {
     position: relative;
 }
 
+.embed-mode #app,
+.embed-mode.history-page {
+    min-height: auto;
+}
+
+.embed-mode .focus-column {
+    min-height: auto;
+}
+
+.embed-mode .install-button,
+.embed-mode #install-prompt,
+.embed-mode #install-modal {
+    display: none !important;
+}
+
 .focus-column {
     width: 100%;
     max-width: 28rem;

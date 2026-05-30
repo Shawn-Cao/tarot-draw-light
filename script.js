@@ -1,6 +1,9 @@
 import { tarotDeck } from './tarot-data.js';
 import { saveDraw, buildHistoryEntry } from './history-store.js';
 import { loadPrefs, savePrefs } from './prefs-store.js';
+import { getAppBasePath, isEmbedMode, initEmbedResize } from './app-base.js';
+
+const isEmbed = isEmbedMode();
 
 const MAJOR_ARCANA_COUNT = 22;
 
@@ -488,6 +491,10 @@ drawSettings.addEventListener('click', (e) => {
 drawAgainBtn.addEventListener('click', resetDraw);
 
 async function loadAndShowIOSInstallPrompt() {
+    if (isEmbed) {
+        return;
+    }
+
     try {
         if (!iosInstallModule) {
             iosInstallModule = await import('./ios-install.js');
@@ -509,11 +516,17 @@ renderCardSlots();
 updateStagePrompt();
 loadAndShowIOSInstallPrompt();
 
-if ('serviceWorker' in navigator) {
+if (isEmbed) {
+    initEmbedResize();
+}
+
+if (!isEmbed && 'serviceWorker' in navigator) {
+    const basePath = getAppBasePath();
+    const swUrl = `${basePath}/service-worker.js`;
+    const swScope = `${basePath}/`;
+
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/tarot-draw-light/service-worker.js', {
-            scope: '/tarot-draw-light/'
-        })
+        navigator.serviceWorker.register(swUrl, { scope: swScope })
             .then((registration) => {
                 console.log('ServiceWorker registration successful:', registration.scope);
 

@@ -11,6 +11,7 @@ A lightweight Progressive Web App for drawing and interpreting tarot cards. Work
 - Card flip animation and interpretation
 - Expandable upright and reversed meanings
 - Saved draw history (local storage) on a separate history page
+- Embeddable iframe widget (`embed.html`) for use on other sites
 - Installable PWA with offline support
 - No backend required — fully client-side
 
@@ -38,6 +39,54 @@ A lightweight Progressive Web App for drawing and interpreting tarot cards. Work
 4. The site will be live at:
 
    `https://<your-github-username>.github.io/tarot-draw-light/`
+
+## Embed in an iframe
+
+The app can be embedded on other pages (your blog, portfolio, etc.).
+
+**Embed URL:** `https://<your-github-username>.github.io/tarot-draw-light/embed.html`
+
+### Requirements
+
+| Topic | Notes |
+|-------|--------|
+| **Framing** | GitHub Pages does not send `X-Frame-Options: DENY`, so cross-site iframes work |
+| **HTTPS** | Parent page should use HTTPS (mixed content blocked otherwise) |
+| **Size** | Give the iframe a width (~320–480px+) and height (640px+ or auto-resize — see below) |
+| **PWA / offline** | Disabled in embed mode (install prompt and service worker skipped) |
+| **Storage** | History and preferences use `localStorage`, partitioned per top-level site when embedded on another domain |
+| **Sandbox** | Avoid `sandbox` without `allow-scripts allow-same-origin` or the app will break |
+
+### Basic embed
+
+```html
+<iframe
+  src="https://shawn-cao.github.io/tarot-draw-light/embed.html"
+  title="Tarot Draw"
+  width="100%"
+  height="720"
+  style="border:0;max-width:28rem"
+  loading="lazy"
+></iframe>
+```
+
+### Auto-resize height (optional)
+
+The embed posts its content height to the parent. Listen for `tarot-draw-light:resize`:
+
+```html
+<script>
+  window.addEventListener('message', (event) => {
+    if (event.data?.type !== 'tarot-draw-light:resize') return;
+    const frame = document.getElementById('tarot-embed');
+    if (frame) frame.style.height = event.data.height + 'px';
+  });
+</script>
+```
+
+Try **`embed-demo.html`** in this repo for a working example with copy-paste snippet.
+
+You can also append `?embed=1` to `index.html` or `history.html` for the same embed behavior.
 
 ## PWA Setup
 

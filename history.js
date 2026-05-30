@@ -1,5 +1,8 @@
 import { cardById } from './tarot-data.js';
 import { loadHistory, clearHistory, formatDrawnAt, parseHistoryCardId } from './history-store.js';
+import { getAppBasePath, isEmbedMode, initEmbedResize } from './app-base.js';
+
+const isEmbed = isEmbedMode();
 
 const historyList = document.getElementById('history-list');
 const historyEmpty = document.getElementById('history-empty');
@@ -95,10 +98,18 @@ clearHistoryBtn.addEventListener('click', () => {
 
 render();
 
-if ('serviceWorker' in navigator) {
+if (isEmbed) {
+    document.documentElement.classList.add('embed-mode');
+    const backLink = document.querySelector('.back-link');
+    if (backLink) {
+        backLink.href = 'embed.html';
+    }
+    initEmbedResize();
+} else if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/tarot-draw-light/service-worker.js', {
-            scope: '/tarot-draw-light/'
+        const basePath = getAppBasePath();
+        navigator.serviceWorker.register(`${basePath}/service-worker.js`, {
+            scope: `${basePath}/`
         }).catch(() => {});
     });
 }

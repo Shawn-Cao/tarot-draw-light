@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" class="embed-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a1030">
+    <meta name="description" content="Embeddable tarot card draw widget">
+    <title>Tarot Draw</title>
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <nav class="options-menu" aria-label="Draw options">
+            <button
+                type="button"
+                id="menu-toggle"
+                class="menu-toggle"
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-controls="draw-settings"
+                aria-label="Draw options"
+            >
+                <span class="menu-bar" aria-hidden="true"></span>
+                <span class="menu-bar" aria-hidden="true"></span>
+                <span class="menu-bar" aria-hidden="true"></span>
+            </button>
+            <div id="menu-backdrop" class="menu-backdrop hidden" aria-hidden="true"></div>
+            <div id="draw-settings" class="draw-settings hidden" role="dialog" aria-modal="true" aria-label="Draw options">
+                <div class="setting-group">
+                    <span class="setting-label">Cards</span>
+                    <div class="option-group" role="group" aria-label="Number of cards">
+                        <button type="button" class="option active" data-spread="1" aria-pressed="true">1</button>
+                        <button type="button" class="option" data-spread="3" aria-pressed="false">3</button>
+                        <button type="button" class="option" data-spread="5" aria-pressed="false">5</button>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <span class="setting-label">Deck</span>
+                    <div class="option-group" role="group" aria-label="Deck type">
+                        <button type="button" class="option active" data-deck="major" aria-pressed="true">Major</button>
+                        <button type="button" class="option" data-deck="minor" aria-pressed="false">Minor</button>
+                    </div>
+                </div>
+                <div class="menu-divider" role="separator"></div>
+                <a href="history.html?embed=1" class="menu-history-link" id="history-link">History</a>
+            </div>
+        </nav>
+
+        <main class="focus-column">
+            <header class="hero">
+                <h1>Tarot Draw</h1>
+                <p class="subtitle">Focus your mind and draw a card for insight.</p>
+            </header>
+
+            <div class="card-stage">
+                <div id="cards-container" class="cards-container cards-count-1"></div>
+                <p id="stage-prompt" class="stage-prompt">Tap a card to draw</p>
+            </div>
+
+            <section id="readings" class="readings hidden"></section>
+
+            <button id="draw-again" class="primary-button hidden" type="button">Draw Again</button>
+        </main>
+    </div>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
