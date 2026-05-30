@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#1a1030">
+    <meta name="description" content="View your past tarot draws">
+    <title>Draw History | Tarot Draw</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app" class="history-page">
+        <header class="page-header">
+            <a href="index.html" class="back-link">← Draw</a>
+            <h1>History</h1>
+        </header>
+
+        <main class="focus-column history-column">
+            <p id="history-empty" class="history-empty hidden">No draws saved yet. Your readings will appear here after you draw.</p>
+            <div id="history-list" class="history-list"></div>
+            <button id="clear-history" class="secondary-button hidden" type="button">Clear all history</button>
+        </main>
+    </div>
+    <script type="module" src="history.js"></script>
+</body>
+</html>

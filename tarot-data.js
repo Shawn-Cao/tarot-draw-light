@@ -8,6 +8,7 @@
 export const tarotDeck = [
   // Major Arcana
   {
+    id: 'the-fool',
     name: 'The Fool',
     meaning_up:
       'Beginnings, innocence, spontaneity, a free spirit. Taking a leap of faith.',
@@ -18,6 +19,7 @@ export const tarotDeck = [
       'A young man in colorful vestments pauses at a cliff edge, white rose in one hand and a staff with a bundle over his shoulder, a small dog at his feet and the sun behind him.',
   },
   {
+    id: 'the-magician',
     name: 'The Magician',
     meaning_up:
       'Manifestation, resourcefulness, power, inspired action. Tapping into your full potential.',
@@ -28,6 +30,7 @@ export const tarotDeck = [
       'A robed figure stands before a table bearing a wand, cup, sword, and pentacle, one hand raised to the sky and one pointing to the earth, with an infinity symbol above his head.',
   },
   {
+    id: 'the-high-priestess',
     name: 'The High Priestess',
     meaning_up:
       'Intuition, sacred knowledge, divine feminine, the subconscious mind.',
@@ -38,6 +41,7 @@ export const tarotDeck = [
       'A seated woman between black and white pillars marked B and J holds a scroll inscribed TORA, with a crescent moon at her feet and a pomegranate veil behind her.',
   },
   {
+    id: 'the-empress',
     name: 'The Empress',
     meaning_up:
       'Femininity, beauty, nature, nurturing, abundance. A new opportunity.',
@@ -48,6 +52,7 @@ export const tarotDeck = [
       'A crowned woman reclines on a cushioned throne amid wheat and trees, holding a scepter and wearing a star crown over her heart-shaped shield.',
   },
   {
+    id: 'the-emperor',
     name: 'The Emperor',
     meaning_up:
       'Authority, establishment, structure, a father figure. Leadership.',
@@ -58,6 +63,7 @@ export const tarotDeck = [
       'A bearded ruler sits on a stone throne carved with ram heads, holding an orb and scepter against a backdrop of barren red mountains.',
   },
   {
+    id: 'the-hierophant',
     name: 'The Hierophant',
     meaning_up:
       'Spiritual wisdom, religious beliefs, conformity, tradition, institutions.',
@@ -68,6 +74,7 @@ export const tarotDeck = [
       'A pontiff seated between two pillars blesses two kneeling acolytes, with crossed keys at his feet and a triple crown on his head.',
   },
   {
+    id: 'the-lovers',
     name: 'The Lovers',
     meaning_up: 'Love, harmony, relationships, values alignment, choices.',
     meaning_rev:
@@ -77,6 +84,7 @@ export const tarotDeck = [
       'An angel with outspread wings blesses naked Adam and Eve in a garden, with the Tree of Knowledge and the Tree of Life on either side.',
   },
   {
+    id: 'the-chariot',
     name: 'The Chariot',
     meaning_up: 'Control, willpower, success, action, determination.',
     meaning_rev:
@@ -86,6 +94,7 @@ export const tarotDeck = [
       'An armored warrior stands in a square chariot beneath a starry canopy, pulled by one black and one white sphinx before a walled city.',
   },
   {
+    id: 'strength',
     name: 'Strength',
     meaning_up: 'Strength, courage, persuasion, influence, compassion.',
     meaning_rev: 'Inner strength, self-doubt, weakness, insecurity.',
@@ -94,6 +103,7 @@ export const tarotDeck = [
       'A woman in a white robe gently closes the jaws of a lion, an infinity symbol above her head and a garland of flowers around her waist.',
   },
   {
+    id: 'the-hermit',
     name: 'The Hermit',
     meaning_up: 'Soul-searching, introspection, being alone, inner guidance.',
     meaning_rev: 'Isolation, loneliness, withdrawal, paranoia.',
@@ -102,6 +112,7 @@ export const tarotDeck = [
       'An elderly bearded man in a gray cloak stands on a snowy peak, holding a lantern in one hand and a staff in the other.',
   },
   {
+    id: 'wheel-of-fortune',
     name: 'Wheel of Fortune',
     meaning_up: 'Good luck, karma, life cycles, destiny, a turning point.',
     meaning_rev: 'Bad luck, resistance to change, breaking cycles, delays.',
@@ -110,6 +121,7 @@ export const tarotDeck = [
       'A great wheel lettered with TARO and Hebrew signs is topped by a sphinx, with a descending serpent and rising Anubis, and four winged creatures in the corners.',
   },
   {
+    id: 'justice',
     name: 'Justice',
     meaning_up: 'Justice, fairness, truth, cause and effect, law.',
     meaning_rev: 'Unfairness, lack of accountability, dishonesty, injustice.',
@@ -118,6 +130,7 @@ export const tarotDeck = [
       'A crowned figure seated between pillars holds upright scales in one hand and a raised sword in the other, with a purple veil behind.',
   },
   {
+    id: 'the-hanged-man',
     name: 'The Hanged Man',
     meaning_up: 'Pause, surrender, letting go, new perspectives.',
     meaning_rev: 'Delays, resistance, stalling, indecision, needless sacrifice.',
@@ -126,6 +139,7 @@ export const tarotDeck = [
       'A man hangs upside down by one foot from a living T-shaped tree, his other leg crossed and his hands clasped behind his back beneath a radiant halo.',
   },
   {
+    id: 'death',
     name: 'Death',
     meaning_up: 'Endings, change, transformation, transition.',
     meaning_rev: 'Resistance to change, personal transformation, inner purging.',
@@ -134,6 +148,7 @@ export const tarotDeck = [
       'A skeleton in black armor rides a white horse carrying a black banner with a white rose, while a bishop and others kneel before a setting sun between two towers.',
   },
   {
+    id: 'temperance',
     name: 'Temperance',
     meaning_up: 'Balance, moderation, patience, purpose.',
     meaning_rev: 'Imbalance, excess, self-healing, re-alignment.',
@@ -142,6 +157,7 @@ export const tarotDeck = [
       'A winged angel with one foot in water and one on land pours liquid between two cups, with a path leading to mountains crowned by light in the distance.',
   },
   {
+    id: 'the-devil',
     name: 'The Devil',
     meaning_up: 'Shadow self, attachment, addiction, restriction, sexuality.',
     meaning_rev: 'Releasing limiting beliefs, exploring dark thoughts, detachment.',
@@ -150,6 +166,7 @@ export const tarotDeck = [
       'A horned goat figure sits on a black pedestal beneath an inverted pentagram, while a chained naked man and woman stand below with small horns and tails.',
   },
   {
+    id: 'the-tower',
     name: 'The Tower',
     meaning_up: 'Sudden change, upheaval, chaos, revelation, awakening.',
     meaning_rev: 'Personal transformation, fear of change, averting disaster.',
@@ -158,6 +175,7 @@ export const tarotDeck = [
       'Lightning strikes a tall stone tower, blasting its crown away as two figures fall headlong amid flames and jagged masonry.',
   },
   {
+    id: 'the-star',
     name: 'The Star',
     meaning_up: 'Hope, faith, purpose, renewal, spirituality.',
     meaning_rev: 'Lack of faith, despair, self-trust, disconnection.',
@@ -166,6 +184,7 @@ export const tarotDeck = [
       'A naked woman kneels by a pool, pouring water from two pitchers onto land and water beneath one large star and seven smaller stars.',
   },
   {
+    id: 'the-moon',
     name: 'The Moon',
     meaning_up: 'Illusion, fear, anxiety, subconscious, intuition.',
     meaning_rev: 'Release of fear, repressed emotion, inner confusion.',
@@ -174,6 +193,7 @@ export const tarotDeck = [
       'A full moon with a face sheds drops over a crayfish emerging from a pool, while a dog and wolf howl along a path between two towers.',
   },
   {
+    id: 'the-sun',
     name: 'The Sun',
     meaning_up: 'Positivity, fun, warmth, success, vitality.',
     meaning_rev:
@@ -183,6 +203,7 @@ export const tarotDeck = [
       'A naked child rides a white horse beneath a radiant sun, holding a red banner before a low wall and tall sunflowers.',
   },
   {
+    id: 'judgement',
     name: 'Judgement',
     meaning_up: 'Judgement, rebirth, inner calling, absolution.',
     meaning_rev: 'Self-doubt, inner critic, ignoring the call, indecisiveness.',
@@ -191,6 +212,7 @@ export const tarotDeck = [
       'An angel in clouds blows a trumpet with a cross flag as naked figures rise from coffins below with arms outstretched toward the sky.',
   },
   {
+    id: 'the-world',
     name: 'The World',
     meaning_up: 'Completion, integration, accomplishment, travel.',
     meaning_rev: 'Seeking personal closure, short-cuts, delays.',
@@ -200,6 +222,7 @@ export const tarotDeck = [
   },
   // Suit of Wands
   {
+    id: 'ace-of-wands',
     name: 'Ace of Wands',
     meaning_up: 'Inspiration, new opportunities, growth, potential.',
     meaning_rev: 'An emerging idea, lack of direction, distractions, delays.',
@@ -208,6 +231,7 @@ export const tarotDeck = [
       'A hand issuing from a cloud grasps a budding wand or branch with sprouting leaves.',
   },
   {
+    id: 'two-of-wands',
     name: 'Two of Wands',
     meaning_up: 'Future planning, progress, decisions, discovery.',
     meaning_rev: 'Fear of unknown, lack of planning, personal goals.',
@@ -216,6 +240,7 @@ export const tarotDeck = [
       'A man stands on a battlement holding a globe in one hand and a wand in the other, with a second wand fixed to the wall and ships on the sea below.',
   },
   {
+    id: 'three-of-wands',
     name: 'Three of Wands',
     meaning_up: 'Progress, expansion, foresight, overseas opportunities.',
     meaning_rev: 'Playing small, lack of foresight, unexpected delays.',
@@ -224,6 +249,7 @@ export const tarotDeck = [
       'A man in red robes stands on a cliff watching ships pass on the sea, with three wands planted upright behind him.',
   },
   {
+    id: 'four-of-wands',
     name: 'Four of Wands',
     meaning_up: 'Celebration, joy, harmony, relaxation, homecoming.',
     meaning_rev: 'Personal celebration, inner harmony, conflict with others.',
@@ -232,6 +258,7 @@ export const tarotDeck = [
       'Four wands support a flower garland before a castle as two women raise bouquets in celebration.',
   },
   {
+    id: 'five-of-wands',
     name: 'Five of Wands',
     meaning_up: 'Conflict, disagreements, competition, tension, diversity.',
     meaning_rev: 'Inner conflict, releasing tension, avoiding conflict.',
@@ -240,6 +267,7 @@ export const tarotDeck = [
       'Five youths brandish wands in a vigorous mock battle on open ground.',
   },
   {
+    id: 'six-of-wands',
     name: 'Six of Wands',
     meaning_up: 'Public recognition, victory, progress, self-confidence.',
     meaning_rev: 'Private achievement, personal definition of success, fall from grace.',
@@ -248,6 +276,7 @@ export const tarotDeck = [
       'A rider on a white horse wears a laurel wreath and carries a wand wreathed in leaves while a crowd follows with raised wands.',
   },
   {
+    id: 'seven-of-wands',
     name: 'Seven of Wands',
     meaning_up: 'Challenge, competition, perseverance, protection.',
     meaning_rev: 'Exhaustion, giving up, overwhelmed, lack of confidence.',
@@ -256,6 +285,7 @@ export const tarotDeck = [
       'A man on higher ground defends himself with a wand against six wands thrust up at him from below.',
   },
   {
+    id: 'eight-of-wands',
     name: 'Eight of Wands',
     meaning_up: 'Movement, fast paced change, action, alignment.',
     meaning_rev: 'Delays, frustration, resisting change, internal alignment.',
@@ -264,6 +294,7 @@ export const tarotDeck = [
       'Eight wands fly diagonally through the air above a river and open landscape.',
   },
   {
+    id: 'nine-of-wands',
     name: 'Nine of Wands',
     meaning_up: 'Resilience, courage, persistence, test of faith, boundaries.',
     meaning_rev: 'Inner resources, struggle, overwhelm, defensive, paranoia.',
@@ -272,6 +303,7 @@ export const tarotDeck = [
       'A bandaged man leans on a wand while eight wands stand upright behind him like a palisade.',
   },
   {
+    id: 'ten-of-wands',
     name: 'Ten of Wands',
     meaning_up: 'Burden, extra responsibility, hard work, completion.',
     meaning_rev: 'Doing it all, carrying the burden, delegation, release.',
@@ -280,6 +312,7 @@ export const tarotDeck = [
       'A man bent under the weight of ten wands struggles toward a distant town.',
   },
   {
+    id: 'page-of-wands',
     name: 'Page of Wands',
     meaning_up: 'Enthusiasm, exploration, discovery, free spirit.',
     meaning_rev: 'Newly-formed ideas, redirecting energy, self-limiting beliefs.',
@@ -288,6 +321,7 @@ export const tarotDeck = [
       'A youth in a feathered cap stands in a barren landscape looking at a large sprouting wand.',
   },
   {
+    id: 'knight-of-wands',
     name: 'Knight of Wands',
     meaning_up: 'Energy, passion, inspired action, adventure, impulsiveness.',
     meaning_rev: 'Passion project, haste, scattered energy, delays, frustration.',
@@ -296,6 +330,7 @@ export const tarotDeck = [
       'A knight in armor rides a rearing horse across a desert, holding a wand and wearing a tunic patterned with salamanders.',
   },
   {
+    id: 'queen-of-wands',
     name: 'Queen of Wands',
     meaning_up: 'Courage, confidence, independence, social butterfly, determination.',
     meaning_rev: 'Self-respect, self-confidence, introverted, a muted version of yourself.',
@@ -304,6 +339,7 @@ export const tarotDeck = [
       'A crowned queen sits on a throne holding a wand and a sunflower, with a black cat at her feet.',
   },
   {
+    id: 'king-of-wands',
     name: 'King of Wands',
     meaning_up: 'Natural-born leader, vision, entrepreneur, honour.',
     meaning_rev: 'Impulsiveness, haste, ruthless, high expectations.',
@@ -313,6 +349,7 @@ export const tarotDeck = [
   },
   // Suit of Cups
   {
+    id: 'ace-of-cups',
     name: 'Ace of Cups',
     meaning_up: 'Love, new relationships, compassion, creativity.',
     meaning_rev: 'Self-love, intuition, repressed emotions.',
@@ -321,6 +358,7 @@ export const tarotDeck = [
       'A hand from a cloud offers an overflowing chalice from which five streams fall, while a dove descends bearing a host.',
   },
   {
+    id: 'two-of-cups',
     name: 'Two of Cups',
     meaning_up: 'Unified love, partnership, mutual attraction.',
     meaning_rev: 'Self-love, break-ups, disharmony, distrust.',
@@ -329,6 +367,7 @@ export const tarotDeck = [
       'A man and woman exchange cups beneath a caduceus and lion-headed staff, with a house on a hill between them.',
   },
   {
+    id: 'three-of-cups',
     name: 'Three of Cups',
     meaning_up: 'Celebration, friendship, creativity, collaborations.',
     meaning_rev: 'Independence, alone time, hardcore partying, "three\'s a crowd".',
@@ -337,6 +376,7 @@ export const tarotDeck = [
       'Three women in flowing dresses dance in a circle, each raising a cup, with fruit scattered on the ground.',
   },
   {
+    id: 'four-of-cups',
     name: 'Four of Cups',
     meaning_up: 'Meditation, contemplation, apathy, reevaluation.',
     meaning_rev: 'Retreat, withdrawal, checking in for alignment.',
@@ -345,6 +385,7 @@ export const tarotDeck = [
       'A seated man with crossed arms gazes at three cups before him while a hand from a cloud offers a fourth.',
   },
   {
+    id: 'five-of-cups',
     name: 'Five of Cups',
     meaning_up: 'Regret, failure, disappointment, pessimism.',
     meaning_rev: 'Personal setbacks, self-forgiveness, moving on.',
@@ -353,6 +394,7 @@ export const tarotDeck = [
       'A cloaked figure stares at three spilled cups while two upright cups stand behind on a riverbank before a bridge and castle.',
   },
   {
+    id: 'six-of-cups',
     name: 'Six of Cups',
     meaning_up: 'Revisiting the past, childhood memories, innocence, joy.',
     meaning_rev: 'Living in the past, forgiveness, lacking playfulness.',
@@ -361,6 +403,7 @@ export const tarotDeck = [
       'A child offers a cup filled with flowers to a smaller child in a garden where six cups stand among blossoms.',
   },
   {
+    id: 'seven-of-cups',
     name: 'Seven of Cups',
     meaning_up: 'Opportunities, choices, wishful thinking, illusion.',
     meaning_rev: 'Alignment, personal values, overwhelmed by choices.',
@@ -369,6 +412,7 @@ export const tarotDeck = [
       'A figure in shadow faces seven cups floating in clouds, each holding a different vision such as a castle, jewels, or a wreath.',
   },
   {
+    id: 'eight-of-cups',
     name: 'Eight of Cups',
     meaning_up: 'Disappointment, abandonment, withdrawal, escapism.',
     meaning_rev: 'Trying one more time, indecision, aimless drifting, walking away.',
@@ -377,6 +421,7 @@ export const tarotDeck = [
       'A cloaked figure walks away from eight stacked cups toward moonlit mountains.',
   },
   {
+    id: 'nine-of-cups',
     name: 'Nine of Cups',
     meaning_up: 'Contentment, satisfaction, gratitude, wish come true.',
     meaning_rev: 'Inner happiness, materialism, dissatisfaction, indulgence.',
@@ -385,6 +430,7 @@ export const tarotDeck = [
       'A satisfied man sits with arms crossed before a curved bench where nine cups are displayed on a blue drapery.',
   },
   {
+    id: 'ten-of-cups',
     name: 'Ten of Cups',
     meaning_up: 'Divine love, blissful relationships, harmony, alignment.',
     meaning_rev: 'Disconnection, misaligned values, struggling relationships.',
@@ -393,6 +439,7 @@ export const tarotDeck = [
       'A couple raise their arms beneath a rainbow of ten cups while two children play nearby and a home stands in the distance.',
   },
   {
+    id: 'page-of-cups',
     name: 'Page of Cups',
     meaning_up: 'Creative opportunities, intuitive messages, curiosity, possibility.',
     meaning_rev: 'New ideas, doubting intuition, creative blocks, emotional immaturity.',
@@ -401,6 +448,7 @@ export const tarotDeck = [
       'A youth in a floral tunic stands by the sea holding a cup from which a fish emerges to speak.',
   },
   {
+    id: 'knight-of-cups',
     name: 'Knight of Cups',
     meaning_up: 'Creativity, romance, charm, imagination, beauty.',
     meaning_rev: 'Overactive imagination, unrealistic, jealous, moody.',
@@ -409,6 +457,7 @@ export const tarotDeck = [
       'A knight in winged armor rides a slow horse along a river, holding a cup and wearing a fish-emblazoned tunic.',
   },
   {
+    id: 'queen-of-cups',
     name: 'Queen of Cups',
     meaning_up: 'Compassionate, caring, emotionally stable, intuitive, in flow.',
     meaning_rev: 'Inner feelings, self-care, self-love, co-dependency.',
@@ -417,6 +466,7 @@ export const tarotDeck = [
       'A queen on a throne by the sea gazes at an ornate closed cup, with cherubs carved on her seat and water behind her.',
   },
   {
+    id: 'king-of-cups',
     name: 'King of Cups',
     meaning_up: 'Emotionally balanced, compassionate, diplomatic.',
     meaning_rev: 'Self-compassion, inner feelings, moodiness, emotionally manipulative.',
@@ -426,6 +476,7 @@ export const tarotDeck = [
   },
   // Suit of Swords
   {
+    id: 'ace-of-swords',
     name: 'Ace of Swords',
     meaning_up: 'Breakthroughs, new ideas, mental clarity, success.',
     meaning_rev: 'Inner clarity, re-thinking an idea, clouded judgement.',
@@ -434,6 +485,7 @@ export const tarotDeck = [
       'A hand from a cloud grasps an upright sword crowned with a laurel wreath and palm branch.',
   },
   {
+    id: 'two-of-swords',
     name: 'Two of Swords',
     meaning_up: 'Difficult decisions, weighing up options, an impasse, avoidance.',
     meaning_rev: 'Indecision, confusion, information overload, stalemate.',
@@ -442,6 +494,7 @@ export const tarotDeck = [
       'A blindfolded woman seated by the sea holds two crossed swords against her chest beneath a crescent moon.',
   },
   {
+    id: 'three-of-swords',
     name: 'Three of Swords',
     meaning_up: 'Heartbreak, emotional pain, sorrow, grief, hurt.',
     meaning_rev: 'Negative self-talk, releasing pain, optimism, forgiveness.',
@@ -450,6 +503,7 @@ export const tarotDeck = [
       'Three swords pierce a red heart against a stormy gray sky with rain in the distance.',
   },
   {
+    id: 'four-of-swords',
     name: 'Four of Swords',
     meaning_up: 'Rest, relaxation, meditation, contemplation, recuperation.',
     meaning_rev: 'Exhaustion, burn-out, deep contemplation, stagnation.',
@@ -458,6 +512,7 @@ export const tarotDeck = [
       'A knight lies in repose on a tomb within a church, with three swords on the wall above and one beneath the effigy.',
   },
   {
+    id: 'five-of-swords',
     name: 'Five of Swords',
     meaning_up: 'Conflict, disagreements, competition, defeat, winning at all costs.',
     meaning_rev: 'Reconciliation, making amends, past resentment.',
@@ -466,6 +521,7 @@ export const tarotDeck = [
       'A smirking man collects swords from two defeated figures who walk away, while two swords lie on the ground before him.',
   },
   {
+    id: 'six-of-swords',
     name: 'Six of Swords',
     meaning_up: 'Transition, change, rite of passage, releasing baggage.',
     meaning_rev: 'Personal transition, resistance to change, unfinished business.',
@@ -474,6 +530,7 @@ export const tarotDeck = [
       'A ferryman poles a boat carrying a woman and child across calm water, with six swords standing upright in the prow.',
   },
   {
+    id: 'seven-of-swords',
     name: 'Seven of Swords',
     meaning_up: 'Betrayal, deception, getting away with something, acting strategically.',
     meaning_rev: 'Imposter syndrome, self-deceit, keeping secrets.',
@@ -482,6 +539,7 @@ export const tarotDeck = [
       'A man tiptoes away from a camp carrying five swords while two remain planted in the ground near tents.',
   },
   {
+    id: 'eight-of-swords',
     name: 'Eight of Swords',
     meaning_up: 'Negative thoughts, self-imposed restriction, imprisonment, victim mentality.',
     meaning_rev: 'Self-limiting beliefs, inner critic, releasing negative thoughts, open to new perspectives.',
@@ -490,6 +548,7 @@ export const tarotDeck = [
       'A blindfolded woman stands bound among eight swords stuck in muddy ground, with a castle on a hill in the distance.',
   },
   {
+    id: 'nine-of-swords',
     name: 'Nine of Swords',
     meaning_up: 'Anxiety, worry, fear, depression, nightmares.',
     meaning_rev: 'Inner turmoil, deep-seated fears, secrets, releasing worry.',
@@ -498,6 +557,7 @@ export const tarotDeck = [
       'A person sits up in bed with head in hands beneath nine swords mounted horizontally on a dark wall, a quilt patterned with roses and astrological symbols below.',
   },
   {
+    id: 'ten-of-swords',
     name: 'Ten of Swords',
     meaning_up: 'Painful endings, deep wounds, betrayal, loss, crisis.',
     meaning_rev: 'Recovery, regeneration, resisting an inevitable end.',
@@ -506,6 +566,7 @@ export const tarotDeck = [
       'A figure lies face down with ten swords in his back beneath a black sky, with calm water and distant hills on the horizon.',
   },
   {
+    id: 'page-of-swords',
     name: 'Page of Swords',
     meaning_up: 'New ideas, curiosity, thirst for knowledge, new ways of communicating.',
     meaning_rev: 'Self-expression, all talk and no action, haphazard action, haste.',
@@ -514,6 +575,7 @@ export const tarotDeck = [
       'A lithe youth stands alert on a windswept hill holding a sword upright with both hands, birds flying in a turbulent sky.',
   },
   {
+    id: 'knight-of-swords',
     name: 'Knight of Swords',
     meaning_up: 'Ambitious, action-oriented, driven to succeed, fast-thinking.',
     meaning_rev: 'Restless, unfocused, impulsive, burn-out.',
@@ -522,6 +584,7 @@ export const tarotDeck = [
       'An armored knight charges on a white horse with sword raised through stormy clouds and bent trees.',
   },
   {
+    id: 'queen-of-swords',
     name: 'Queen of Swords',
     meaning_up: 'Independent, unbiased judgement, clear boundaries, direct communication.',
     meaning_rev: 'Overly-emotional, easily influenced, bitchy, cold-hearted.',
@@ -530,6 +593,7 @@ export const tarotDeck = [
       'A crowned queen on a throne holds an upright sword in one hand and extends the other, with butterflies on her crown and a single bird in the sky.',
   },
   {
+    id: 'king-of-swords',
     name: 'King of Swords',
     meaning_up: 'Mental clarity, intellectual power, authority, truth.',
     meaning_rev: 'Quiet power, inner truth, misuse of power, manipulation.',
@@ -539,6 +603,7 @@ export const tarotDeck = [
   },
   // Suit of Pentacles
   {
+    id: 'ace-of-pentacles',
     name: 'Ace of Pentacles',
     meaning_up: 'A new financial or career opportunity, manifestation, abundance.',
     meaning_rev: 'Lost opportunity, lack of planning and foresight.',
@@ -547,6 +612,7 @@ export const tarotDeck = [
       'A hand from a cloud holds a golden pentacle over a garden arch leading to mountains.',
   },
   {
+    id: 'two-of-pentacles',
     name: 'Two of Pentacles',
     meaning_up: 'Multiple priorities, time management, prioritisation, adaptability.',
     meaning_rev: 'Over-committed, disorganisation, re-prioritisation.',
@@ -555,6 +621,7 @@ export const tarotDeck = [
       'A dancing youth juggles two pentacles linked by an infinity ribbon, with ships riding waves behind him.',
   },
   {
+    id: 'three-of-pentacles',
     name: 'Three of Pentacles',
     meaning_up: 'Teamwork, collaboration, learning, implementation.',
     meaning_rev: 'Disharmony, misalignment, working alone.',
@@ -563,6 +630,7 @@ export const tarotDeck = [
       'A stonemason works on a cathedral arch while a monk and a master hold plans showing three pentacles set in the stonework.',
   },
   {
+    id: 'four-of-pentacles',
     name: 'Four of Pentacles',
     meaning_up: 'Saving money, security, conservatism, scarcity, control.',
     meaning_rev: 'Over-spending, greed, self-protection.',
@@ -571,6 +639,7 @@ export const tarotDeck = [
       'A seated man tightly holds one pentacle to his chest while another rests on his crown and two are under his feet, with a city behind him.',
   },
   {
+    id: 'five-of-pentacles',
     name: 'Five of Pentacles',
     meaning_up: 'Financial loss, poverty, lack mindset, isolation, worry.',
     meaning_rev: 'Recovery from financial loss, spiritual poverty.',
@@ -579,6 +648,7 @@ export const tarotDeck = [
       'Two ragged figures hobble through snow past a stained-glass window showing five pentacles and a lighted interior.',
   },
   {
+    id: 'six-of-pentacles',
     name: 'Six of Pentacles',
     meaning_up: 'Giving, receiving, sharing wealth, generosity, charity.',
     meaning_rev: 'Self-care, unpaid debts, one-sided charity.',
@@ -587,6 +657,7 @@ export const tarotDeck = [
       'A merchant with scales dispenses coins to two kneeling beggars while six pentacles float above him.',
   },
   {
+    id: 'seven-of-pentacles',
     name: 'Seven of Pentacles',
     meaning_up: 'Long-term view, sustainable results, perseverance, investment.',
     meaning_rev: 'Lack of long-term vision, limited success or reward.',
@@ -595,6 +666,7 @@ export const tarotDeck = [
       'A man leaning on a staff pauses to study a pentacle on a bush, with six more pentacles hanging on the vine.',
   },
   {
+    id: 'eight-of-pentacles',
     name: 'Eight of Pentacles',
     meaning_up: 'Apprenticeship, repetitive tasks, mastery, skill development.',
     meaning_rev: 'Self-development, perfectionism, misdirected activity.',
@@ -603,6 +675,7 @@ export const tarotDeck = [
       'A craftsman at a bench engraves pentacles, with five finished coins hung on the wall and one on his worktable.',
   },
   {
+    id: 'nine-of-pentacles',
     name: 'Nine of Pentacles',
     meaning_up: 'Abundance, luxury, self-sufficiency, financial independence.',
     meaning_rev: 'Self-worth, over-investment in work, hustling.',
@@ -611,6 +684,7 @@ export const tarotDeck = [
       'A well-dressed woman in a garden holds a hooded falcon on her gloved hand, with nine pentacles on a grape arbor and a snail at her feet.',
   },
   {
+    id: 'ten-of-pentacles',
     name: 'Ten of Pentacles',
     meaning_up: 'Wealth, financial security, family, long-term success, contribution.',
     meaning_rev: 'The dark side of wealth, financial failure or loss.',
@@ -619,6 +693,7 @@ export const tarotDeck = [
       'An elderly man with dogs talks with a couple and child beneath an archway marked with ten pentacles, with a walled town beyond.',
   },
   {
+    id: 'page-of-pentacles',
     name: 'Page of Pentacles',
     meaning_up: 'Manifestation, financial opportunity, skill development.',
     meaning_rev: 'Lack of progress, procrastination, learn from failure.',
@@ -627,6 +702,7 @@ export const tarotDeck = [
       'A youth in a red cap stands in a plowed field gazing intently at a pentacle held up in both hands, with mountains and trees behind.',
   },
   {
+    id: 'knight-of-pentacles',
     name: 'Knight of Pentacles',
     meaning_up: 'Hard work, productivity, routine, conservatism.',
     meaning_rev: 'Self-discipline, boredom, feeling "stuck", perfectionism.',
@@ -635,6 +711,7 @@ export const tarotDeck = [
       'A knight on a heavy dark horse holds a pentacle and sits still before plowed fields and distant mountains.',
   },
   {
+    id: 'queen-of-pentacles',
     name: 'Queen of Pentacles',
     meaning_up: 'Nurturing, practical, providing financially, a working parent.',
     meaning_rev: 'Financial independence, self-care, work-home conflict.',
@@ -643,6 +720,7 @@ export const tarotDeck = [
       'A queen on a throne in a flowering garden cradles a pentacle in her lap, with a rabbit at her feet and roses and grapes around her.',
   },
   {
+    id: 'king-of-pentacles',
     name: 'King of Pentacles',
     meaning_up: 'Wealth, business, leadership, security, discipline, abundance.',
     meaning_rev: 'Financially inept, obsessed with wealth and status, stubborn.',
@@ -651,3 +729,7 @@ export const tarotDeck = [
       'A crowned king on a throne decorated with bull heads and grape vines holds a pentacle and scepter, with a castle and terraced garden behind him.',
   },
 ];
+
+export const cardById = Object.fromEntries(
+  tarotDeck.map((card) => [card.id, card])
+);

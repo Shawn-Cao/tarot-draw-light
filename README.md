@@ -10,6 +10,7 @@ A lightweight Progressive Web App for drawing and interpreting tarot cards. Work
 - Full Rider-Waite-Smith deck (78 cards)
 - Card flip animation and interpretation
 - Expandable upright and reversed meanings
+- Saved draw history (local storage) on a separate history page
 - Installable PWA with offline support
 - No backend required — fully client-side
 
@@ -53,6 +54,8 @@ To regenerate icons:
 - `index.html` — Main HTML structure
 - `styles.css` — Styling and animations
 - `script.js` — Draw logic and UI (ES6 module)
+- `history.html` / `history.js` — Past draws page
+- `history-store.js` — Local storage for draw history (ES6 module)
 - `tarot-data.js` — Full deck data and meanings (ES6 module)
 - `ios-install.js` — iOS Safari install prompt (ES6 module)
 - `manifest.json` — PWA manifest
