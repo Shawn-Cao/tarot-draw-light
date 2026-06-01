@@ -6,16 +6,38 @@
 </head>
 <body>
     <h1>Tarot Draw Icon Generator</h1>
-    <p>Open this file in a browser and the icons will be generated automatically.</p>
+    <p>Icons match the in-app card back (sun, moon, four-point star on purple with gold border).</p>
     <canvas id="canvas192" width="192" height="192" style="border: 1px solid #ccc; margin: 10px;"></canvas>
     <canvas id="canvas512" width="512" height="512" style="border: 1px solid #ccc; margin: 10px;"></canvas>
     <div id="downloads"></div>
 
     <script>
-        function drawStar(ctx, cx, cy, outerR, innerR) {
+        const COLORS = {
+            back: '#2a1848',
+            backInset: '#1f1238',
+            gold: '#d4af37',
+        };
+
+        function roundRect(ctx, x, y, w, h, r) {
+            const radius = Math.min(r, w / 2, h / 2);
             ctx.beginPath();
-            for (let i = 0; i < 10; i++) {
-                const angle = Math.PI / 2 + i * Math.PI / 5;
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + w - radius, y);
+            ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+            ctx.lineTo(x + w, y + h - radius);
+            ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+            ctx.lineTo(x + radius, y + h);
+            ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        function drawFourPointStar(ctx, cx, cy, outerR) {
+            const innerR = outerR * 0.18;
+            ctx.beginPath();
+            for (let i = 0; i < 8; i++) {
+                const angle = -Math.PI / 2 + (i * Math.PI) / 4;
                 const r = i % 2 === 0 ? outerR : innerR;
                 const x = cx + Math.cos(angle) * r;
                 const y = cy + Math.sin(angle) * r;
@@ -25,32 +47,93 @@
             ctx.closePath();
         }
 
+        function drawSun(ctx, cx, cy, r) {
+            ctx.beginPath();
+            ctx.arc(cx, cy, r * 0.42, 0, Math.PI * 2);
+            ctx.fill();
+            const rays = 8;
+            for (let i = 0; i < rays; i++) {
+                const angle = (i * Math.PI * 2) / rays - Math.PI / 2;
+                const x1 = cx + Math.cos(angle) * r * 0.55;
+                const y1 = cy + Math.sin(angle) * r * 0.55;
+                const x2 = cx + Math.cos(angle) * r;
+                const y2 = cy + Math.sin(angle) * r;
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.lineWidth = Math.max(1, r * 0.14);
+                ctx.lineCap = 'round';
+                ctx.stroke();
+            }
+        }
+
+        function drawMoon(ctx, cx, cy, r) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(cx, cy, r, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.beginPath();
+            ctx.arc(cx + r * 0.42, cy - r * 0.08, r * 0.82, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+
         function createIcon(canvas, size) {
             const ctx = canvas.getContext('2d');
-            const gradient = ctx.createLinearGradient(0, 0, size, size * 0.8);
-            gradient.addColorStop(0, '#1a1030');
-            gradient.addColorStop(1, '#2d1b4e');
-            ctx.fillStyle = gradient;
+            const pad = size * 0.06;
+            const radius = size * 0.12;
+
+            ctx.fillStyle = COLORS.back;
             ctx.fillRect(0, 0, size, size);
 
-            const cx = size / 2;
-            const cy = size / 2;
-            const cardW = size * 0.35;
-            const cardH = size * 0.55;
-            const radius = size * 0.03;
-
-            ctx.fillStyle = '#d4af37';
-            ctx.strokeStyle = '#f5e6c8';
-            ctx.lineWidth = size * 0.012;
-            ctx.beginPath();
-            ctx.roundRect(cx - cardW / 2, cy - cardH / 2, cardW, cardH, radius);
+            const inset = size * 0.08;
+            const innerRadius = size * 0.08;
+            roundRect(ctx, pad, pad, size - pad * 2, size - pad * 2, radius);
+            ctx.fillStyle = COLORS.back;
             ctx.fill();
+            ctx.strokeStyle = COLORS.gold;
+            ctx.lineWidth = Math.max(2, size * 0.014);
             ctx.stroke();
 
-            ctx.fillStyle = '#1a1030';
-            drawStar(ctx, cx, cy, size * 0.08, size * 0.035);
+            roundRect(
+                ctx,
+                pad + inset,
+                pad + inset,
+                size - (pad + inset) * 2,
+                size - (pad + inset) * 2,
+                innerRadius
+            );
+            ctx.fillStyle = COLORS.backInset;
             ctx.fill();
 
+            const inner = {
+                x: pad + inset,
+                y: pad + inset,
+                w: size - (pad + inset) * 2,
+                h: size - (pad + inset) * 2,
+            };
+
+            ctx.fillStyle = COLORS.gold;
+            ctx.strokeStyle = COLORS.gold;
+            ctx.globalAlpha = 0.88;
+
+            const symbolR = size * 0.065;
+            const marginX = inner.x + inner.w * 0.18;
+            const marginY = inner.y + inner.h * 0.16;
+            const rightX = inner.x + inner.w - inner.w * 0.18;
+            const bottomY = inner.y + inner.h - inner.h * 0.16;
+            const centerX = inner.x + inner.w / 2;
+            const centerY = inner.y + inner.h / 2;
+
+            drawSun(ctx, marginX, marginY, symbolR);
+            drawMoon(ctx, rightX, marginY, symbolR * 0.95);
+            drawFourPointStar(ctx, centerX, centerY, symbolR * 1.35);
+            ctx.fill();
+            drawMoon(ctx, marginX, bottomY, symbolR * 0.95);
+            drawSun(ctx, rightX, bottomY, symbolR);
+
+            ctx.globalAlpha = 1;
             return canvas;
         }
 
@@ -62,27 +145,18 @@
 
         const downloads = document.getElementById('downloads');
 
-        canvas192.toBlob((blob) => {
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'icon-192.png';
-            a.textContent = 'Download icon-192.png';
-            a.style.display = 'block';
-            a.style.margin = '10px';
-            downloads.appendChild(a);
-        });
-
-        canvas512.toBlob((blob) => {
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'icon-512.png';
-            a.textContent = 'Download icon-512.png';
-            a.style.display = 'block';
-            a.style.margin = '10px';
-            downloads.appendChild(a);
-        });
+        for (const [canvas, name] of [[canvas192, 'icon-192.png'], [canvas512, 'icon-512.png']]) {
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = name;
+                a.textContent = `Download ${name}`;
+                a.style.display = 'block';
+                a.style.margin = '10px';
+                downloads.appendChild(a);
+            });
+        }
     </script>
 </body>
 </html>

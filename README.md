@@ -92,11 +92,14 @@ You can also append `?embed=1` to `index.html` or `history.html` for the same em
 
 This app can be installed via **Add to Home Screen**. Icon files (`icon-192.png` and `icon-512.png`) are included.
 
-To regenerate icons:
+To regenerate icons (card-back pattern: sun, moon, four-point star):
 
-1. Open `generate-icons-simple.html` in your browser
-2. Download the generated icon files
-3. Replace the existing icons in the root directory
+```bash
+npm install
+npm run generate-icons
+```
+
+Or open `generate-icons-simple.html` in a browser and download the PNGs.
 
 ## Files
 
